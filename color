@@ -1,0 +1,146 @@
+const Discord = require('discord.js');
+const db = require('quick.db')
+const ayarlar = require("../ayarlar.json")
+exports.run = (client, message, args) => {
+
+     let kanalhata = new Discord.RichEmbed()
+ .setTitle('Bir Hata oluştu :(! \n **' + message.member.user.username + '** Kurulum Yapılacak kanalı etiketlemen gerekiyor \n Örnek kullanım** ' +  ayarlar.prefix +'renk #kanal**')
+ .setColor('RED')
+  
+  
+   let permhata = new Discord.RichEmbed()
+ .setTitle('Bir Hata oluştu :(! \n **' + message.member.user.username + '** Kurulum başlatmak için,"ADMINISTRATOR" yetkisine Sahip olman gerekiyor.')
+ .setColor('RED')
+   
+ if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.sendEmbed(permhata) 
+let pembe = message.guild.roles.find(r => r.name === "pembe");
+let sarı = message.guild.roles.find(r => r.name === "sarı");
+let kırmızı = message.guild.roles.find(r => r.name === "kırmızı");
+let siyah = message.guild.roles.find(r => r.name === "pembe");  
+let mavi = message.guild.roles.find(r => r.name === "mavi");
+let turuncu = message.guild.roles.find(r => r.name === "turuncu");
+let yeşil = message.guild.roles.find(r => r.name === "yeşil");
+let beyaz = message.guild.roles.find(r => r.name === "beyaz");
+  let kanal = message.mentions.channels.first();
+  
+if (!kanal) return message.channel.sendEmbed(kanalhata)
+//////////////////////////////////////////////////////////////////////////////  
+
+  
+  
+  
+  var eminmisin = new Discord.RichEmbed()
+  .setTitle('Onay İşlemi')
+  .setDescription(kanal + ' Adlı kanala kurulum yapılmasına eminseniz aşağıda ki emojiye basın!')
+  .setTimestamp()
+  message.channel.send(eminmisin).then(async function (sentEmbed) {
+			const emojiArray = ["✅"];
+			const filter = (reaction, user) => emojiArray.includes(reaction.emoji.name) && user.id === message.author.id;
+			await sentEmbed.react(emojiArray[0]).catch(function () { });
+			var reactions = sentEmbed.createReactionCollector(filter, {
+				time: 30000
+			});
+reactions.on("end", () => sentEmbed.edit("İşlemi iptal Edildi!"));
+    reactions.on("collect", async function (reaction) {
+				if (reaction.emoji.name === "✅") {
+sentEmbed.edit("İşlem Onaylandı.Kurulum başlıuyor..");
+          
+  message.guild.createRole({
+        name: 'sarı',
+        color: '#FFFF00', 
+          
+  })       
+ 
+   message.guild.createRole({
+        name: 'mavi',
+        color: '#0C00FF', 
+          
+  })          
+   message.guild.createRole({
+        name: 'kırmızı',
+        color: 'RED', 
+          
+  })             
+     message.guild.createRole({
+        name: 'siyah',
+        color: 'BLACK', 
+          
+  })        
+     message.guild.createRole({
+        name: 'pembe',
+        color: 'FF00D1', 
+          
+  })  
+      message.guild.createRole({
+        name: 'turuncu',
+        color: 'ORANGE', 
+          
+  })          
+        message.guild.createRole({
+        name: 'beyaz',
+        color: 'FFFFFF', 
+          
+  })          
+         message.guild.createRole({
+        name: 'yeşil',
+        color: 'GREEN', 
+          
+  })                
+ 
+      
+        
+          var renk = new Discord.RichEmbed()  
+    .setTitle(message.guild.name + ' Renk Seçimleri')
+    .setDescription(':green_heart: : **yeşil** \n :hibiscus: : **pembe** \n :yellow_heart: : **sarı** \n :heart: : **kırmızı** \n :black_circle: : **siyah** \n :blue_heart: : **mavi** \n :large_orange_diamond: : **turuncu** \n :white_circle: : **beyaz** ')
+    .setFooter('istediğiniz renk rolüyle eşleşen emojiye basmanız yeterlidir. \n Bütün renk rollerini silmek için "🚫" emojisine basın.')   
+      .setColor('GREEN')
+    kanal.send(renk).then(async function (sentEmbed) {
+  const emojiArray1 = ["🌺"];
+const emojiArray2 = ["💛"];
+const emojiArray3 = ["❤"];  
+const emojiArray4 = ["⚫"];         
+const emojiArray5 = ["💙"];         
+const emojiArray6 = ["🔶"]; 
+const emojiArray7 = ["⚪"]; 
+const emojiArray8 = ["💚"];
+ const emojiArraysil = ["🚫"];
+      await sentEmbed.react(emojiArray1[0]).catch(function () { }); 
+      await sentEmbed.react(emojiArray2[0]).catch(function () { }); 
+      await sentEmbed.react(emojiArray3[0]).catch(function () { }); 
+      await sentEmbed.react(emojiArray4[0]).catch(function () { }); 
+      await sentEmbed.react(emojiArray5[0]).catch(function () { }); 
+      await sentEmbed.react(emojiArray6[0]).catch(function () { }); 
+      await sentEmbed.react(emojiArray7[0]).catch(function () { }); 
+     await sentEmbed.react(emojiArray8[0]).catch(function () { });
+      await sentEmbed.react(emojiArraysil[0]).catch(function () { });
+
+   var reactions1 = sentEmbed.createReactionCollector
+   reactions.on("collect", async function (reaction) {
+				if (reaction1.emoji.name === "🌺") {   
+
+    member.addRole(pembe.id)     
+      
+
+        })
+  }     
+    })
+    }
+    })
+  })
+
+
+          
+    ////////////////////////////////////////////
+};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'renk',
+  description: 'renk seçimi',
+  usage: 'renk'
+};
